@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Souvenirs 📸</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <h2 class="gallery-title">Nos Moments ✨</h2>
+        
+        <div id="card-stack" class="card-stack">
+            </div>
+        
+        <p class="instruction">Clique sur la pile pour voir la suite !</p>
+        <a href="index.html" class="btn-back">⬅ Retour</a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // On lance l'initialisation de la galerie quand la page est chargée
+        document.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+</body>
+</html>

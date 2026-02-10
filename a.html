@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour toi ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="ta_musique.mp3" type="audio/mpeg"> 
+    </audio>
+
+    <div class="container">
+        
+        <section id="ask-screen" class="screen active">
+            <div class="glass-card">
+                <h1>Coucou Audrey ✨</h1>
+                <p>J'ai créé ce petit univers juste pour toi.</p>
+                <div class="question-box">
+                    <h2>Veux-tu être ma Valentine ? 🌹</h2>
+                    <div class="buttons">
+                        <button id="btn-yes" class="btn primary">Oui 💖</button>
+                        <button id="btn-no" class="btn secondary">Non 🙊</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="main-dashboard" class="screen hidden">
+            <div class="header">
+                <h2>Bienvenue dans ton monde 🌎</h2>
+                <!--<button onclick="toggleMusic()">🎵 Musique : <span id="music-status">Off</span></button>-->
+            </div>
+
+            <div class="nav-pills">
+                <button class="pill active" onclick="showTab('poems')">💌 Poèmes</button>
+                <button class="pill" onclick="showTab('songs')">🎶 Chansons</button>
+                <button class="pill" onclick="showTab('date')">📅 Notre Soirée</button>
+                <!--<button class="pill" onclick="showTab('gallery')">📸 Souvenirs</button>-->
+                <button class="pill" onclick="window.location.href='gallery.html'">📷 Galerie</button>
+            </div>
+
+            <div class="content-area glass-card">
+                
+                <div id="poems" class="tab-content active">
+                    <h3>Juste pour toi</h3>
+                    <div id="poem-display">
+                        </div>
+                    <button class="btn-small" onclick="nextPoem()">Plus?</button>
+                </div>
+
+                <div id="songs" class="tab-content hidden">
+                    <h3>Notre Playlist</h3>
+                    <ul id="song-list">
+                        </ul>
+                </div>
+                <!--a modifier-->
+                <div id="date" class="tab-content hidden">
+                    <h3>Organise notre soirée ✨</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="time">20:00</div>
+                            <div class="activity">Dîner Romantique 🍝</div>
+                        </div>
+                        <div class="timeline-item interactive">
+                            <div class="time">21:30</div>
+                            <div class="activity">
+                                <strong>Choisis l'activité !</strong>
+                                <div class="choices">
+                                    <button onclick="selectActivity(this, 'Bowling 🎳')">Bowling</button>
+                                    <button onclick="selectActivity(this, 'Cinéma 🍿')">Cinéma</button>
+                                    <button onclick="selectActivity(this, 'Balade 🌙')">Balade</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="time">23:00</div>
+                            <div class="activity">Fin cosy & Câlins 🧸</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gallery" class="tab-content hidden">
+                    <h3>Juste nous deux</h3>
+                    <div class="photo-grid">
+                        <div class="placeholder-photo">Ta photo ici</div>
+                        <div class="placeholder-photo">Ta photo ici</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <div id="hearts-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
