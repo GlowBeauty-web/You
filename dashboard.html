@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour toi ❤️</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="page">
+  <div id="ambient-hearts" class="ambient-hearts" aria-hidden="true"></div>
+
+  <audio id="bg-music" loop preload="metadata">
+    <source src="ta_musique.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="container dashboard">
+    <section id="ask-screen" class="screen fade-in active">
+      <div class="glass-card">
+        <h1>Coucou Audrey ✨</h1>
+        <p>J'ai créé ce petit univers juste pour toi.</p>
+        <div class="question-box">
+          <h2>Veux-tu être ma Valentine ? 🌹</h2>
+          <div class="buttons">
+            <button id="btn-yes" class="btn primary" type="button">Oui 💖</button>
+            <button id="btn-no" class="btn secondary" type="button">Non 🙊</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="main-dashboard" class="screen hidden">
+      <header class="dashboard-header fade-in">
+        <div>
+          <h2>Bienvenue dans ton monde 🌎</h2>
+          <p class="muted">Tout est ici: poèmes, musique et souvenirs.</p>
+        </div>
+      </header>
+
+      <section class="since-card glass-card fade-in">
+        <h3>Ensemble depuis...</h3>
+        <div id="since-counter" class="since-counter" aria-live="polite">
+          <div>
+            <span id="since-days">0</span>
+            <small>jours</small>
+          </div>
+          <div>
+            <span id="since-hours">0</span>
+            <small>heures</small>
+          </div>
+          <div>
+            <span id="since-minutes">0</span>
+            <small>minutes</small>
+          </div>
+        </div>
+        <p class="since-start">Depuis le <span id="since-date-label">17/04/2025</span></p>
+      </section>
+
+      <div class="secret-zone fade-in">
+        <button id="secret-btn" class="btn ghost" type="button">Ne clique pas ici 🤫</button>
+      </div>
+
+      <nav class="nav-pills fade-in" aria-label="Sections">
+        <button class="pill active" type="button" data-tab="poems">💌 Poèmes</button>
+        <button class="pill" type="button" data-tab="songs">🎶 Chansons</button>
+        <a class="pill link-pill" href="gallery.html">📷 Galerie</a>
+      </nav>
+
+      <section class="content-area glass-card fade-in">
+        <div id="poems" class="tab-content active">
+          <h3>Juste pour toi</h3>
+          <div id="poem-display"></div>
+          <button class="btn-small" type="button" id="next-poem">Plus?</button>
+        </div>
+
+        <div id="songs" class="tab-content hidden">
+          <h3>Une Playlist</h3>
+          <ul id="song-list"></ul>
+        </div>
+
+        <!--
+        <div id="date" class="tab-content hidden">
+          <h3>Organise notre soirée ✨</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="time">20:00</div>
+              <div class="activity">Dîner romantique 🍝</div>
+            </div>
+            <div class="timeline-item interactive">
+              <div class="time">21:30</div>
+              <div class="activity">
+                <strong>Choisis l'activité !</strong>
+                <div class="choices">
+                  <button type="button" data-activity="Bowling 🎳">Bowling</button>
+                  <button type="button" data-activity="Cinéma 🍿">Cinéma</button>
+                  <button type="button" data-activity="Balade 🌙">Balade</button>
+                </div>
+                <p id="activity-result" class="activity-result"></p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="time">23:00</div>
+              <div class="activity">Fin cosy & câlins 🧸</div>
+            </div>
+          </div>
+        </div>-->
+      </section>
+    </section>
+  </main>
+
+  <div id="hearts-container" class="hearts-container" aria-hidden="true"></div>
+
+  <div id="secret-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="secret-title">
+    <div class="modal-card glass-card fade-in">
+      <h3 id="secret-title">Pour toi seulement 💜</h3>
+      <p>Tu es mon calme, ma tempete preferee, et mon endroit sure. Merci d'etre la.</p>
+      <button id="secret-close" class="btn primary" type="button">Fermer</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
