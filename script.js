@@ -1,228 +1,438 @@
-// --- DONNÉES À PERSONNALISER ---
-// --- LOGIQUE DE CONNEXION (index.html) ---
+const START_DATE = "2025-04-17T00:00:00";
 
-// Détecte quand l'utilisateur tape son nom
-document.getElementById('username')?.addEventListener('input', function(e) {
-    const name = e.target.value.trim().toLowerCase();
-    const passSection = document.getElementById('password-section');
-    
-    // Si le nom contient "audrey", on affiche le champ mot de passe
-    if (name === 'audrey') {
-        passSection.classList.remove('hidden');
-        passSection.classList.add('active');
-    } else {
-        passSection.classList.add('hidden');
-        passSection.classList.remove('active');
-    }
+const poems = [
+    "Comment je l'aime\n\nJe t'aime d'une façon que je n'ai jamais su expliquer,\nCe n'est pas un mot que je dis pour combler le silence,\nC'est un sentiment qui grandit même quand je me tais,\nQui reste vivant malgré l'absence.\nJe t'aime dans tes forces et dans tes doutes,\nDans tes sourires et dans tes peurs cachées,\nJe t'aime même quand tu t'éloignes,\nParce que mon cœur, lui, ne sait pas reculer.\n\nJe t'aime sans condition, sans calcul,\nPas pour ce que tu donnes, mais pour ce que tu es.\nJe t'aime quand le monde devient lourd,\nParce que ton existence rend mes jours plus légers.\nEt même si je ne sais pas toujours bien aimer,\nMon amour pour toi, lui, n'a jamais menti.",
+    "Tu es en or\n\nTu es en or, mais pas l'or qui se vend,\nPas celui qu'on enferme dans des coffres froids.\nTu es l'or rare, celui qu'on ressent,\nCelui qui éclaire même dans le noir.\nTon cœur est précieux, ta présence aussi,\nTu apportes de la valeur là où tout semblait vide.\n\nQuand tu entres dans ma vie, tout prend un sens,\nMême mes blessures trouvent un peu de repos.\nTu es cette richesse qu'on ne compte pas en argent,\nMais en battements de cœur et en moments beaux.\nEt moi, parfois, je n'ai pas su protéger ce trésor,\nMais je sais aujourd'hui que tu valais bien plus que de l'or.",
+    "Tu es unique\n\nIl n'existe pas deux personnes comme toi,\nPas deux voix qui apaisent comme la tienne.\nTon regard me touche d'une façon\nQue je ne retrouverai jamais ailleurs sur cette terre.\nTu es unique dans ta manière d'aimer,\nUnique dans ta façon de ressentir,\nEt même quand tu doutes de ta valeur,\nPour moi, tu es déjà tout ce qu'il y a de plus précieux à offrir.\n\nJe pourrais chercher dans le monde entier,\nJe ne trouverais jamais un autre toi.\nParce que ce que tu es ne se copie pas,\nCe que tu représentes ne se remplace pas.\nTu es une seule personne,\nMais pour mon cœur, tu étais un univers entier.",
+    "Mon regret d'avoir tout gâché\n\nJe regrette chaque mot que je n'ai pas dit au bon moment,\nChaque silence qui t'a donné l'impression que je m'en foutais.\nJe regrette d'avoir laissé mes erreurs\nParler plus fort que mon amour pour toi.\nJe n'ai pas su protéger ce que nous avions,\nJe n'ai pas su rassurer ton cœur quand il doutait.\n\nAujourd'hui je comprends ce que j'ai perdu,\nParce que l'absence fait voir clair.\nJe ne regrette pas de t'avoir aimée,\nJe regrette de ne pas t'avoir aimée comme tu le méritais.\nSi je pouvais réparer ce qui a été brisé,\nJe le ferais sans hésiter, sans orgueil, sans peur,\nJuste pour revoir la confiance dans tes yeux.",
+    "La distance\n\nLa distance nous sépare par des kilomètres,\nMais elle ne sait pas séparer ce que je ressens.\nElle met de l'espace entre nos mains,\nMais pas entre nos souvenirs ni entre mes sentiments.\nIl y a des nuits où ton absence pèse lourd,\nOù ton manque devient plus fort que le sommeil.\n\nMême loin, tu es présente dans mes pensées,\nDans mes silences, dans mes prières muettes.\nJe parle de toi sans te parler,\nJe pense à toi sans pouvoir te toucher.\nEt malgré la distance, malgré le temps,\nMon cœur, lui, n'a jamais appris à s'éloigner de toi.",
+    "Le “nous” que je veux retrouver\n\nJe ne veux pas d'un avenir où ton prénom n'existe plus,\nOù nos souvenirs deviennent juste des “avant”.\nJe veux croire que notre “nous” n'est pas mort,\nQu'il est juste blessé, fatigué, hésitant.\nJe sais que j'ai abîmé ce que nous avions construit,\nMais je crois encore en ce que nous pourrions redevenir.\n\nLe “nous”, ce n'était pas parfait,\nMais c'était réel, c'était fort.\nC'était deux cœurs imparfaits\nQui essayaient d'aimer de leur mieux.\nJe ne te promets pas un conte de fées,\nJe te promets un amour plus conscient, plus vrai,\nSi un jour tu décides de me laisser une autre chance.",
+    "L'espoir et la promesse\n\nJe sais que ton cœur a perdu confiance,\nEt je ne te demande pas d'oublier le passé.\nJe te demande juste de regarder mes efforts,\nPas mes promesses vides.\nJe ne te dirai pas que je vais changer du jour au lendemain,\nMais je te dirai que je suis prêt à faire mieux chaque jour.\n\nSi tu choisis de ne plus me croire,\nJe respecterai ton silence et ta douleur.\nMais sache qu'il y aura toujours en moi\nUne place pour toi, intacte, sincère.\nJe garde l'espoir discret, humble,\nQue nos chemins puissent un jour se recroiser,\nEt que cette fois, je sache aimer sans tout gâcher."
+];
+
+const songs = [
+    { title: "Amour Toxic", artist: "DADJU", file: "songs/DADJU - Amour Toxic (Clip Officiel) - DADJU.mp3" },
+    { title: "SHAKE", artist: "Franglish", file: "songs/Franglish - SHAKE (Clip Officiel) - Franglish.mp3" },
+    { title: "Love Me", artist: "JMSN", file: "songs/JMSN - Love Me (Official Video) - JMSN.mp3" },
+    { title: "EST-CE QUE C'EST BIEN COMME CA", artist: "NZ BENKS", file: "songs/NZ BENKS - EST-CE QUE C'EST BIEN COMME CA - NZ Benks.mp3" },
+    { title: "Se Pa Pou dat", artist: "Alan Cave", file: "songs/Se Pa Pou dat - Alan Cave.mp3" },
+    { title: "Nobody Gets Me", artist: "SZA", file: "songs/SZA - Nobody Gets Me (Official Video) - SZAVEVO.mp3" },
+    { title: "Aime-moi demain", artist: "The Shin Sekaï ft. Gradur", file: "songs/The Shin Sekaï - Aime-moi demain (Clip officiel) ft. Gradur - TheshinsekaiVEVO.mp3" },
+    { title: "Bad (Remix)", artist: "Wale ft. Rihanna", file: "songs/Wale ft. Rihanna- Bad (Remix) - Wale.mp3" }
+];
+
+let currentPoemIndex = 0;
+let currentAudio = null;
+let currentBtn = null;
+let isBgPlaying = false;
+let counterInterval = null;
+let bgMusicEl = null;
+let bgToggleBtn = null;
+let bgStatusEl = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("is-loaded");
+    setupAmbientHearts();
+    setupLogin();
+    setupDashboard();
+    setupGallery();
 });
 
-function checkLogin() {
-    const name = document.getElementById('username').value.trim().toLowerCase();
-    const password = document.getElementById('password').value;
-    const errorMsg = document.getElementById('error-msg');
+function setupLogin() {
+    const username = document.getElementById("username");
+    const passSection = document.getElementById("password-section");
+    const loginBtn = document.getElementById("login-btn");
 
-    if (name === 'audrey') {
-        // C'est Audrey : On vérifie le mot de passe
-        if (password === '2252') {
-            // SUCCÈS : Redirection vers la page Valentin (renomme ton ancien index en dashboard.html)
-            window.location.href = "a.html";
-        } else {
-            // ECHEC
-            errorMsg.style.display = "block";
-            errorMsg.innerText = "Mot de passe incorrect 🔒";
-        }
-    } else if (name.length > 0) {
-        // C'est une amie : Redirection directe vers la galerie
-        window.location.href = "gallery.html";
-    } else {
-        errorMsg.style.display = "block";
-        errorMsg.innerText = "Entre ton prénom stp !";
+    if (username && passSection) {
+        username.addEventListener("input", (e) => {
+            const name = e.target.value.trim().toLowerCase();
+            if (name === "audrey") {
+                passSection.classList.remove("hidden");
+                passSection.classList.add("active");
+            } else {
+                passSection.classList.add("hidden");
+                passSection.classList.remove("active");
+            }
+        });
+    }
+
+    if (loginBtn) {
+        loginBtn.addEventListener("click", checkLogin);
     }
 }
 
-// ... LE RESTE DE TON CODE PRÉCÉDENT POUR LA PAGE VALENTIN RESTE EN DESSOUS ...
+function checkLogin() {
+    const name = document.getElementById("username")?.value.trim().toLowerCase();
+    const password = document.getElementById("password")?.value;
+    const errorMsg = document.getElementById("error-msg");
 
-// Liste de tes poèmes ou mots doux
-const poems = [
-    "Dans tes yeux je vois mon avenir, \nEt dans ton sourire, mon bonheur.",
-    "Tu es la seule personne qui fait \nbattre mon coeur aussi vite.",
-    "Chaque jour passé avec toi \nest mon nouveau jour préféré.",
-    "Roses are red, Violets are blue, \nJe ne suis pas poète, \nMais je suis fou de you."
-];
+    if (!name) {
+        if (errorMsg) {
+            errorMsg.style.display = "block";
+            errorMsg.textContent = "Entre ton prenom stp !";
+        }
+        return;
+    }
 
-// --- DONNÉES À PERSONNALISER ---
+    if (name === "audrey") {
+        if (password === "1704") {
+            window.location.href = "dashboard.html";
+        } else if (errorMsg) {
+            errorMsg.style.display = "block";
+            errorMsg.textContent = "Mot de passe incorrect 🔒";
+        }
+        return;
+    }
 
-// Ajoute le nom exact de tes fichiers mp3 ici
-const songs = [
-    { title: "Perfect", artist: "Ed Sheeran", file: "perfect.mp3" },
-    { title: "All of Me", artist: "John Legend", file: "all_of_me.mp3" },
-    { title: "Die With A Smile", artist: "Lady Gaga", file: "die_with_a_smile.mp3" }
-];
+    window.location.href = "gallery.html";
+}
 
-// --- LOGIQUE DU SITE ---
+window.checkLogin = checkLogin;
 
-let currentPoemIndex = 0;
+function setupDashboard() {
+    const dashboard = document.getElementById("main-dashboard");
+    const askScreen = document.getElementById("ask-screen");
+    const btnYes = document.getElementById("btn-yes");
+    const btnNo = document.getElementById("btn-no");
 
-// Au chargement
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Bouton "NON" qui fuit
-    const btnNo = document.getElementById('btn-no');
-    btnNo.addEventListener('mouseover', moveButton);
-    btnNo.addEventListener('click', moveButton); // Au cas où elle clique vite
+    if (btnNo) {
+        btnNo.addEventListener("mouseover", moveButton);
+        btnNo.addEventListener("click", moveButton);
+    }
 
-    // 2. Bouton "OUI"
-    document.getElementById('btn-yes').addEventListener('click', () => {
-        document.getElementById('ask-screen').classList.remove('active');
-        document.getElementById('ask-screen').classList.add('hidden');
-        
-        document.getElementById('main-dashboard').classList.remove('hidden');
-        document.getElementById('main-dashboard').classList.add('active');
-        
-        createConfetti();
-        loadPoem();
-        loadSongs();
-    });
-});
+    const startDashboard = () => {
+        if (askScreen) {
+            askScreen.classList.add("hidden");
+            askScreen.classList.remove("active");
+        }
+        if (dashboard) {
+            dashboard.classList.remove("hidden");
+            dashboard.classList.add("active");
+        }
+        initDashboardContent();
+    };
 
-// Fonction pour faire bouger le bouton Non
+    if (btnYes) {
+        btnYes.addEventListener("click", () => {
+            startDashboard();
+            createConfetti();
+        });
+    } else if (dashboard) {
+        initDashboardContent();
+    }
+}
+
+function initDashboardContent() {
+    loadPoem();
+    loadSongs();
+    setupTabs();
+    setupCounter();
+    setupSecret();
+    setupAudio();
+    setupActivityChoices();
+
+    const nextPoemBtn = document.getElementById("next-poem");
+    if (nextPoemBtn) {
+        nextPoemBtn.addEventListener("click", nextPoem);
+    }
+}
+
 function moveButton() {
-    const btnNo = document.getElementById('btn-no');
+    const btnNo = document.getElementById("btn-no");
+    if (!btnNo) return;
+    
+    // Envoyer l'email silencieusement
+    const formData = new URLSearchParams();
+    formData.append("message", "Non - Clic bouton refus");
+    formData.append("timestamp", new Date().toISOString());
+    formData.append("_captcha", "false");
+    
+    fetch("https://formsubmit.co/boxedbyallan31@gmail.com", {
+        method: "POST",
+        body: formData
+    }).catch(() => {
+        // Ignorer silencieusement les erreurs
+    });
+    
+    // Faire bouger le bouton
     const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
     const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
-    btnNo.style.position = 'fixed';
+    btnNo.style.position = "fixed";
     btnNo.style.left = `${x}px`;
     btnNo.style.top = `${y}px`;
 }
 
-// Gestion des onglets
-window.showTab = function(tabId) {
-    // Cacher tous les contenus
-    document.querySelectorAll('.tab-content').forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('active');
+function setupTabs() {
+    const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
+    if (tabButtons.length === 0) return;
+
+    tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const tabId = btn.getAttribute("data-tab");
+            if (tabId) showTab(tabId);
+        });
     });
-    // Désactiver tous les boutons
-    document.querySelectorAll('.pill').forEach(el => el.classList.remove('active'));
-
-    // Activer le bon
-    document.getElementById(tabId).classList.remove('hidden');
-    document.getElementById(tabId).classList.add('active');
-    
-    // Mettre en surbrillance le bouton cliqué (c'est une astuce simple)
-    const activeBtn = Array.from(document.querySelectorAll('.pill')).find(btn => btn.getAttribute('onclick').includes(tabId));
-    if(activeBtn) activeBtn.classList.add('active');
-};
-
-// Afficher les poèmes
-function loadPoem() {
-    const display = document.getElementById('poem-display');
-    // Remplace les sauts de ligne \n par des balises <br>
-    display.innerHTML = `<p>${poems[currentPoemIndex].replace(/\n/g, '<br>')}</p>`;
 }
 
-window.nextPoem = function() {
+function showTab(tabId) {
+    const tabContents = document.querySelectorAll(".tab-content");
+    const tabButtons = document.querySelectorAll("[data-tab]");
+
+    tabContents.forEach((el) => {
+        el.classList.add("hidden");
+        el.classList.remove("active");
+    });
+
+    tabButtons.forEach((el) => el.classList.remove("active"));
+
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        activeTab.classList.remove("hidden");
+        activeTab.classList.add("active");
+    }
+
+    const activeBtn = Array.from(tabButtons).find(
+        (btn) => btn.getAttribute("data-tab") === tabId
+    );
+    if (activeBtn) activeBtn.classList.add("active");
+}
+
+window.showTab = showTab;
+
+function loadPoem() {
+    const display = document.getElementById("poem-display");
+    if (!display) return;
+    display.innerHTML = `<p>${poems[currentPoemIndex].replace(/\n/g, "<br>")}</p>`;
+}
+
+function nextPoem() {
     currentPoemIndex = (currentPoemIndex + 1) % poems.length;
     loadPoem();
-};
+}
 
-// Variable pour stocker la chanson en cours de lecture
-let currentAudio = null;
-let currentBtn = null;
+window.nextPoem = nextPoem;
 
 function loadSongs() {
-    const list = document.getElementById('song-list');
-    list.innerHTML = ""; // On vide la liste
+    const list = document.getElementById("song-list");
+    if (!list) return;
+    list.innerHTML = "";
 
-    songs.forEach((song, index) => {
-        // On crée l'élément HTML pour chaque chanson
-        const li = document.createElement('li');
+    songs.forEach((song) => {
+        const li = document.createElement("li");
         li.className = "music-item";
+        const button = document.createElement("button");
+        button.className = "play-btn";
+        button.type = "button";
+        button.textContent = "▶";
+        button.addEventListener("click", () => playTrack(song.file, button));
+
         li.innerHTML = `
             <div class="song-info">
                 <span class="song-title">${song.title}</span>
                 <span class="song-artist">${song.artist}</span>
             </div>
-            <button class="play-btn" onclick="playTrack('${song.file}', this)">
-                ▶
-            </button>
         `;
+        li.appendChild(button);
         list.appendChild(li);
     });
 }
 
-// Fonction pour jouer une piste spécifique
-window.playTrack = function(filename, btn) {
-    // 1. Si on clique sur le bouton qui joue déjà, on met pause
+function playTrack(filename, btn) {
     if (currentAudio && !currentAudio.paused && currentBtn === btn) {
         currentAudio.pause();
-        btn.innerHTML = "▶"; // Remet l'icône Play
+        btn.textContent = "▶";
         return;
     }
 
-    // 2. Si une autre ue joue (fond ou autre piste), on coupe tout
     if (currentAudio) {
         currentAudio.pause();
-        if(currentBtn) currentBtn.innerHTML = "▶";
-    }
-    
-    // On coupe aussi la musique de fond du site si elle est active
-    const bgMusic = document.getElementById('bg-music');
-    if(bgMusic && !bgMusic.paused) {
-        bgMusic.pause();
-        document.getElementById('music-status').innerText = "Pause (Piste en cours)";
-        // On met à jour la variable globale isPlaying du fond si nécessaire
-        isPlaying = false; 
+        if (currentBtn) currentBtn.textContent = "▶";
     }
 
-    // 3. On lance la nouvelle musique
+    if (bgMusicEl && !bgMusicEl.paused) {
+        bgMusicEl.pause();
+        isBgPlaying = false;
+        updateBgStatus();
+        if (bgToggleBtn) bgToggleBtn.classList.remove("is-on");
+    }
+
     currentAudio = new Audio(filename);
+    currentAudio.volume = 0.8;
     currentAudio.play();
     currentBtn = btn;
-    btn.innerHTML = "⏸"; // Met l'icône Pause
+    btn.textContent = "⏸";
 
-    // Quand la musique finit, on remet le bouton à zéro
-    currentAudio.onended = function() {
-        btn.innerHTML = "▶";
+    currentAudio.onended = () => {
+        btn.textContent = "▶";
         currentAudio = null;
+        currentBtn = null;
     };
-};
+}
 
-// Interaction choix activité
-window.selectActivity = function(btn, activityName) {
-    // Enlever la classe active des autres boutons
+window.playTrack = playTrack;
+
+function setupActivityChoices() {
+    const choiceButtons = document.querySelectorAll("[data-activity]");
+    if (choiceButtons.length === 0) return;
+
+    choiceButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const activity = btn.getAttribute("data-activity") || "";
+            selectActivity(btn, activity);
+        });
+    });
+}
+
+function selectActivity(btn, activityName) {
     const parent = btn.parentElement;
-    Array.from(parent.children).forEach(b => b.style.background = 'rgba(255,255,255,0.1)');
-    
-    // Activer celui-ci
-    btn.style.background = '#ff4d6d';
-    alert(`C'est noté ! On part sur : ${activityName} 😍`);
-};
+    if (parent) {
+        Array.from(parent.children).forEach((b) => b.classList.remove("is-selected"));
+    }
+    btn.classList.add("is-selected");
 
-// Effet Confetti / Coeurs simple
+    const result = document.getElementById("activity-result");
+    if (result) {
+        result.textContent = `C'est note ! On part sur : ${activityName} 😍`;
+    }
+}
+
+window.selectActivity = selectActivity;
+
+function setupAudio() {
+    bgMusicEl = document.getElementById("bg-music");
+    bgToggleBtn = document.getElementById("bg-toggle");
+    bgStatusEl = document.getElementById("music-status");
+
+    if (!bgMusicEl || !bgToggleBtn || !bgStatusEl) return;
+
+    updateBgStatus();
+
+    bgToggleBtn.addEventListener("click", () => {
+        if (!isBgPlaying) {
+            if (currentAudio && !currentAudio.paused) {
+                currentAudio.pause();
+                if (currentBtn) currentBtn.textContent = "▶";
+            }
+            bgMusicEl.volume = 0.6;
+            bgMusicEl.play();
+            isBgPlaying = true;
+            bgToggleBtn.classList.add("is-on");
+        } else {
+            bgMusicEl.pause();
+            isBgPlaying = false;
+            bgToggleBtn.classList.remove("is-on");
+        }
+        updateBgStatus();
+    });
+}
+
+function updateBgStatus() {
+    if (!bgStatusEl) return;
+    bgStatusEl.textContent = isBgPlaying ? "On" : "Off";
+}
+
+function setupCounter() {
+    const daysEl = document.getElementById("since-days");
+    const hoursEl = document.getElementById("since-hours");
+    const minutesEl = document.getElementById("since-minutes");
+    const labelEl = document.getElementById("since-date-label");
+
+    if (!daysEl || !hoursEl || !minutesEl) return;
+
+    const startDate = new Date(START_DATE);
+    if (labelEl) {
+        labelEl.textContent = startDate.toLocaleDateString("fr-FR");
+    }
+
+    const updateCounter = () => {
+        const now = new Date();
+        const diff = Math.max(0, now - startDate);
+        const totalMinutes = Math.floor(diff / (1000 * 60));
+        const totalHours = Math.floor(totalMinutes / 60);
+        const days = Math.floor(totalHours / 24);
+        const hours = totalHours % 24;
+        const minutes = totalMinutes % 60;
+
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+    };
+
+    updateCounter();
+    if (counterInterval) clearInterval(counterInterval);
+    counterInterval = setInterval(updateCounter, 1000);
+}
+
+function setupSecret() {
+    const secretBtn = document.getElementById("secret-btn");
+    const modal = document.getElementById("secret-modal");
+    const closeBtn = document.getElementById("secret-close");
+
+    if (!secretBtn || !modal || !closeBtn) return;
+
+    const openModal = () => {
+        modal.classList.remove("hidden");
+        modal.classList.add("is-open");
+    };
+
+    const closeModal = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("is-open");
+    };
+
+    secretBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("is-open")) {
+            closeModal();
+        }
+    });
+}
+
 function createConfetti() {
-    const container = document.getElementById('hearts-container');
-    for (let i = 0; i < 30; i++) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.classList.add('heart');
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+    const container = document.getElementById("hearts-container");
+    if (!container) return;
+    for (let i = 0; i < 24; i += 1) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.classList.add("heart");
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.fontSize = `${Math.random() * 16 + 10}px`;
+        heart.style.animationDuration = `${Math.random() * 2 + 3}s`;
         container.appendChild(heart);
-        
-        // Supprimer après l'animation pour ne pas surcharger la page
         setTimeout(() => {
             heart.remove();
         }, 5000);
     }
 }
 
-// ==============================================
-// LOGIQUE DE LA GALERIE PHOTO (gallery.html)
-// ==============================================
+function setupAmbientHearts() {
+    const container = document.getElementById("ambient-hearts");
+    if (!container) return;
+    const count = 20;
+    container.innerHTML = "";
 
-// 1. Tes Données Photos/Videos (AJOUTE TES FICHIERS ICI !)
+    for (let i = 0; i < count; i += 1) {
+        const heart = document.createElement("span");
+        heart.className = "ambient-heart";
+        const size = Math.random() * 14 + 8;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 12 + 10;
+        const delay = Math.random() * 8;
+
+        heart.style.setProperty("--size", `${size}px`);
+        heart.style.setProperty("--left", `${left}%`);
+        heart.style.setProperty("--duration", `${duration}s`);
+        heart.style.setProperty("--delay", `${delay}s`);
+        heart.textContent = "❤";
+        container.appendChild(heart);
+    }
+}
+
 const galleryData = [
     { src: "video/A1.mp4", caption: "Toi" },
     { src: "video/C1.mp4", caption: "Chahida" },
@@ -251,24 +461,27 @@ const galleryData = [
     { src: "video/NMA.mp4", caption: "Mariam & Nouria" },
     { src: "video/NOA.mp4", caption: "Ornella & Nouria" },
     { src: "video/O1.mp4", caption: "Ornella" },
-    { src: "video/O2.mp4", caption: "Ornella" },
-    // Ajoute autant de lignes que tu veux :
-    // { src: "video/nom_de_ton_fichier.mp4", caption: "Ta legende ici" },
+    { src: "video/O2.mp4", caption: "Ornella" }
 ];
 
-let cards = []; // Tableau pour stocker les éléments DOM des cartes
+let cards = [];
 
-function initGallery() {
-    const stackContainer = document.getElementById('card-stack');
-    if (!stackContainer) return; // Sécurité si on n'est pas sur la page galerie
+function setupGallery() {
+    const stackContainer = document.getElementById("card-stack");
+    if (!stackContainer) return;
+    initGallery(stackContainer);
+}
 
-    // Création des cartes HTML à partir des données
-    galleryData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
+function initGallery(stackContainer) {
+    stackContainer.innerHTML = "";
+    cards = [];
+
+    galleryData.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
         const isVideo = /\.(mp4|webm|ogg)$/i.test(item.src);
         const mediaMarkup = isVideo
-            ? `<video src="${item.src}" autoplay loop muted playsinline preload="metadata" aria-label="${item.caption}"></video>`
+            ? `<video src="${item.src}" loop muted playsinline preload="metadata" aria-label="${item.caption}"></video>`
             : `<img src="${item.src}" alt="${item.caption}">`;
         card.innerHTML = `
             ${mediaMarkup}
@@ -278,41 +491,60 @@ function initGallery() {
         cards.push(card);
     });
 
-    // Initialisation des classes pour le premier affichage
     updateCardStates();
-
-    // Ajout de l'événement de clic sur la pile
-    stackContainer.addEventListener('click', handleCardClick);
+    stackContainer.addEventListener("click", handleCardClick);
 }
 
 function updateCardStates() {
     cards.forEach((card, index) => {
-        // On nettoie les classes d'état
-        card.classList.remove('card--current', 'card--next', 'card--back', 'card--out');
+        card.classList.remove("card--current", "card--next", "card--back", "card--out");
 
-        // On applique les bonnes classes selon la position dans la pile
         if (index === 0) {
-            card.classList.add('card--current');
+            card.classList.add("card--current");
         } else if (index === 1) {
-            card.classList.add('card--next');
+            card.classList.add("card--next");
         } else {
-            card.classList.add('card--back');
+            card.classList.add("card--back");
+        }
+    });
+
+    const bgMusic = document.getElementById("bg-music");
+    const currentCard = cards[0];
+    const currentVideo = currentCard ? currentCard.querySelector("video") : null;
+
+    if (currentVideo) {
+        if (bgMusic && !bgMusic.paused) {
+            bgMusic.pause();
+        }
+        currentVideo.muted = false;
+        currentVideo.play().catch(() => {
+            currentVideo.pause();
+        });
+    } else if (bgMusic && typeof isBgPlaying !== "undefined" && isBgPlaying) {
+        bgMusic.play().catch(() => {
+            bgMusic.pause();
+        });
+    }
+
+    cards.slice(1).forEach((card) => {
+        const video = card.querySelector("video");
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+            video.muted = true;
         }
     });
 }
 
 function handleCardClick() {
-    if (cards.length < 2) return; // Pas d'animation s'il n'y a qu'une carte
-
-    // 1. La carte du dessus part
+    if (cards.length < 2) return;
     const topCard = cards[0];
-    topCard.classList.add('card--out');
+    topCard.classList.add("card--out");
 
-    // 2. On attend la fin de l'animation pour réorganiser la pile
     setTimeout(() => {
-        // On enlève la carte du début du tableau et on la met à la fin
         cards.push(cards.shift());
-        // On met à jour les états (la 2ème devient la 1ère, etc.)
         updateCardStates();
-    }, 400); // Doit correspondre à la durée de la transition CSS (0.4s)
+    }, 420);
 }
+
+window.initGallery = initGallery;
