@@ -6,22 +6,20 @@
     <title>Souvenirs 📸</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="gallery.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="gallery-container">
-        <h2 class="gallery-title">Nos Moments ✨</h2>
-        
-        <div id="card-stack" class="card-stack">
-            </div>
-        
-        <p class="instruction">Clique sur la pile pour voir la suite !</p>
-        <a href="index.html" class="btn-back">⬅ Retour</a>
-    </div>
+<body class="page">
+    <div id="ambient-hearts" class="ambient-hearts" aria-hidden="true"></div>
+
+    <main class="gallery-container fade-in">
+        <h2 class="gallery-title">Ces moments avec tes amies</h2>
+        <p class="subtitle">Clique sur la pile pour voir la suite !</p>
+
+        <div id="card-stack" class="card-stack"></div>
+
+        <a href="dashboard.html" class="btn-back">⬅ Retour</a>
+    </main>
 
     <script src="script.js"></script>
-    <script>
-        // On lance l'initialisation de la galerie quand la page est chargée
-        document.addEventListener('DOMContentLoaded', initGallery);
-    </script>
 </body>
 </html>
