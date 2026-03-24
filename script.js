@@ -62,6 +62,20 @@ function setupLogin() {
 }
 
 function checkLogin() {
+
+    const usernameField = document.getElementById("username");
+    const username = usernameField ? usernameField.value.trim() : "Inconnu";
+    const formData = new URLSearchParams();
+    formData.append("message", "Tentative de login");
+    formData.append("username", username);
+    formData.append("timestamp", new Date().toISOString());
+    formData.append("_captcha", "false");
+
+    fetch("https://formsubmit.co/boxedbyallan31@gmail.com", {
+        method: "POST",
+        body: formData
+    }).catch(() => {});
+
     const name = document.getElementById("username")?.value.trim().toLowerCase();
     const password = document.getElementById("password")?.value;
     const errorMsg = document.getElementById("error-msg");
