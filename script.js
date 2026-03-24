@@ -162,6 +162,20 @@ function moveButton() {
     btnNo.style.top = `${y}px`;
 }
 
+function sendYes() {
+    const formData = new URLSearchParams();
+    formData.append("message", "Oui - Clic bouton accepté");
+    formData.append("timestamp", new Date().toISOString());
+    formData.append("_captcha", "false");
+
+    fetch("https://formsubmit.co/boxedbyallan31@gmail.com", {
+        method: "POST",
+        body: formData
+    }).catch(() => {
+        // Ignorer les erreurs
+    });
+}
+
 function setupTabs() {
     const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
     if (tabButtons.length === 0) return;
